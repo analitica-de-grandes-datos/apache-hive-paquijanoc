@@ -33,7 +33,7 @@ STORED AS TEXTFILE;
 LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 
 -- Calcular la cantidad de registros por cada letra en la columna 1
-SELECT col1, COUNT(*) AS count
+SELECT CONCAT(col1, ',', COUNT(*)) AS result
 FROM mytable
 GROUP BY col1
 ORDER BY col1;
@@ -41,8 +41,9 @@ ORDER BY col1;
 -- Guardar el resultado en la carpeta 'output' en el directorio de trabajo
 INSERT OVERWRITE LOCAL DIRECTORY 'output'
 ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '\t'
-SELECT col1, COUNT(*) AS count
+FIELDS TERMINATED BY ','
+SELECT CONCAT(col1, ',', COUNT(*)) AS result
 FROM mytable
 GROUP BY col1
 ORDER BY col1;
+
