@@ -29,7 +29,7 @@ FIELDS TERMINATED BY '\t';
 LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 
 -- Consulta para obtener los resultados esperados
-SELECT col0, col1, col2 AS result
+SELECT col0, col1, col2
 FROM mytable
 ORDER BY col0, col2;
 
@@ -38,7 +38,7 @@ SET hive.resultset.use.unique.column.names=false;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT col0, col1, col2 AS result
+SELECT col0, col1, col2
 FROM mytable
 ORDER BY col0, col2;
 
