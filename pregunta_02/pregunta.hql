@@ -31,7 +31,7 @@ LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 -- Consulta para obtener los resultados esperados
 SELECT col0, col1, col2
 FROM mytable
-ORDER BY col0, col2;
+ORDER BY col0, col2, col1;
 
 -- Configurar la salida en formato CSV y almacenar los resultados en archivos separados por valor de col0
 SET hive.resultset.use.unique.column.names=false;
@@ -40,7 +40,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 SELECT col0, col1, col2
 FROM mytable
-ORDER BY col0, col2;
+ORDER BY col0, col2, col1;
 
 
 
