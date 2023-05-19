@@ -44,3 +44,9 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\n'
+SELECT DISTINCT explode(c5) AS unique_c5
+FROM tbl0
+ORDER BY unique_c5;
