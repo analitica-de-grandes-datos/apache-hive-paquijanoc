@@ -29,7 +29,7 @@ FIELDS TERMINATED BY '\t';
 LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 
 -- Consulta para obtener los resultados esperados
-SELECT CONCAT(col1, ',', col2, ',', col3)
+SELECT CONCAT(col1 , ',', col2, ',', col3)
 FROM mytable
 ORDER BY col1, col3;
 
@@ -38,8 +38,6 @@ SET hive.resultset.use.unique.column.names=false;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT CONCAT(col1, ',', col2, ',', col3)
+SELECT CONCAT(col1 , ',', col2, ',', col3)
 FROM mytable
 ORDER BY col1, col3;
-
-
