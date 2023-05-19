@@ -27,7 +27,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\t';
 
 -- Cargar los datos en la tabla
-LOAD DATA INPATH '/path/to/data.tsv' INTO TABLE mytable;
+LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 
 -- Consulta para obtener los resultados esperados
 SELECT col1, COUNT(*) as count
@@ -37,12 +37,10 @@ ORDER BY col1;
 
 -- Configurar la salida en formato CSV y almacenar los resultados en archivos separados por valor de col1
 SET hive.resultset.use.unique.column.names=false;
-INSERT OVERWRITE DIRECTORY '/path/to/output'
+INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 SELECT col1, COUNT(*) as count
 FROM mytable
 GROUP BY col1
 ORDER BY col1;
-
-
