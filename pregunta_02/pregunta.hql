@@ -19,8 +19,8 @@ USE mydatabase;
 -- Crear una tabla para los datos de entrada
 CREATE TABLE IF NOT EXISTS mytable (
   col1 STRING,
-  col2 DATE,
-  col3 INT
+  col2 STRING,
+  col3 STRING
 )
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\t';
@@ -29,15 +29,16 @@ FIELDS TERMINATED BY '\t';
 LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE mytable;
 
 -- Consulta para obtener los resultados esperados
-SELECT CONCAT(col1 , ',', col2, ',', col3)
+SELECT CONCAT(_c0, ',', _c1, ',', _c2) AS result
 FROM mytable
-ORDER BY col1, col3;
+ORDER BY _c0, CAST(_c2 AS INT);
 
 -- Configurar la salida en formato CSV y almacenar los resultados en archivos separados por valor de col1
 SET hive.resultset.use.unique.column.names=false;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT CONCAT(col1 , ',', col2, ',', col3)
+SELECT CONCAT(_c0, ',', _c1, ',', _c2) AS result
 FROM mytable
-ORDER BY col1, col3;
+ORDER BY _c0, CAST(_c2 AS INT);
+
