@@ -44,9 +44,15 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+-- Consulta para obtener los valores únicos de la columna c5 en la tabla tbl0
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\n'
-SELECT DISTINCT explode(c5) AS unique_c5
-FROM tbl0
-ORDER BY unique_c5;
+SELECT distinct_c5
+FROM (
+  SELECT explode(c5) AS distinct_c5
+  FROM tbl0
+  LATERAL VIEW explode(c5) exploded AS distinct_c5
+) subquery
+ORDER BY distinct_c5 ASC;
+
