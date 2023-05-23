@@ -44,4 +44,13 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
-
+-- Consulta para calcular la cantidad de veces que aparece cada valor de la columna c5 por año
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+SELECT
+  year(c4) AS year,
+  explode(c5) AS c5_value,
+  count(*) AS count
+FROM tbl0
+GROUP BY year(c4), explode(c5);

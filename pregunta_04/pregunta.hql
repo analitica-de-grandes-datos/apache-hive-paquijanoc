@@ -48,11 +48,6 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\n'
-SELECT distinct_c5
-FROM (
-  SELECT explode(c5) AS distinct_c5
-  FROM tbl0
-  LATERAL VIEW explode(c5) exploded AS distinct_c5
-) subquery
-ORDER BY distinct_c5 ASC;
-
+SELECT DISTINCT explode(c5) AS unique_c5
+FROM tbl0
+ORDER BY unique_c5;

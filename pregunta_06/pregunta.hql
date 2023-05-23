@@ -45,4 +45,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+-- Consulta para obtener la columna tbl0.c5 con los elementos en mayúscula
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\n'
+SELECT upper(c5) AS c5_upper
+FROM tbl0;
 
