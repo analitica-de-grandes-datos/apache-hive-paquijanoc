@@ -48,7 +48,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 -- Consulta para obtener la columna tbl0.c5 con sus elementos en mayúscula y guardar el resultado en la carpeta output
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '\n'
-SELECT explode(upper(c5)) AS c5_upper
-FROM tbl0;
+FIELDS TERMINATED BY ','
+SELECT t.c5_upper
+FROM tbl0 LATERAL VIEW outer posexplode(c5) t AS pos, c5_element
+LATERAL VIEW explode(split(c5_element, ':')) e AS c5_element_upper
+GROUP BY t.pos, t.c5_element
+ORDER BY t.pos;
 
