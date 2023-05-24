@@ -45,10 +45,13 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+CREATE FUNCTION uppercase_array AS 'org.apache.hadoop.hive.contrib.udf.UDFArrayToUpperCase';
+CREATE TEMPORARY FUNCTION upper_case AS 'org.apache.hadoop.hive.contrib.udf.example.UDFExample';
+
 -- Consulta para obtener la columna tbl0.c5 con sus elementos en mayúscula y guardar el resultado en la carpeta output
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT transform(c5, x -> upper(x)) AS c5_upper
+SELECT upper_case(c5) AS c5_upper
 FROM tbl0;
 
