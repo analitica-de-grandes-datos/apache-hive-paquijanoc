@@ -49,7 +49,9 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT collect_list(upper(col))
-FROM tbl0 
-LATERAL VIEW explode(c5) AS col;
+SELECT id, collect_list(upper(exploded)) AS c5_upper
+FROM tbl0
+LATERAL VIEW explode(c5) exploded_table AS exploded
+GROUP BY id;
+
 
