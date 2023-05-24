@@ -50,5 +50,6 @@ INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 SELECT collect_list(upper(col))
-FROM tbl0 (LATERAL VIEW explode(c5) AS col) t;
+FROM tbl0 
+LATERAL VIEW explode(c5) AS col;
 
