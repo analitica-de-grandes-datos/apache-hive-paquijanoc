@@ -49,8 +49,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT collect_list(upper(exploded)) AS c5_upper
-FROM tbl0
-LATERAL VIEW explode(c5) exploded_table AS exploded;
+SELECT concat_ws(':', collect_list(upper(element))) AS c5_upper
+FROM (
+  SELECT explode(c5) AS element
+  FROM tbl0
+) subquery;
 
 
