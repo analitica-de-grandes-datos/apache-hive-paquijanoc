@@ -49,10 +49,8 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT explode(collect_list(concat_ws(':', upper_element))) AS c5_upper
-FROM (
-  SELECT transform(c5, element -> upper(element)) AS upper_element
-  FROM tbl0
-) t;
+CREATE FUNCTION upper_concat AS 'com.example.UpperConcatUDF'; 
+SELECT explode(collect_list(concat_ws(':', upper_element))) AS c5_upper 
+FROM (SELECT transform(c5, upper_concat) AS upper_element FROM tbl0 ) t;
 
 
