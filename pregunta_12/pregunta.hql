@@ -35,7 +35,7 @@ LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE t0;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT c2_element, c3_key, count(*) AS count
+SELECT c2_element, c3_key, count(1) AS count
 FROM t0
 LATERAL VIEW explode(c2) t0 AS c2_element
 LATERAL VIEW explode(map_keys(c3)) t1 AS c3_key
