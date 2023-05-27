@@ -51,6 +51,5 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 SELECT c2, SUM(value) AS sum_values
 FROM tbl0
-LATERAL VIEW explode(c6) AS key, value
-SELECT key, value
+LATERAL VIEW explode(c6) exploded_table AS key, value
 GROUP BY c2;
