@@ -48,6 +48,6 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT tbl0.c1, tbl1.c4[tbl0.c2] AS c4_value
+SELECT tbl0.c1, tbl1.c4, tbl1.c4[tbl0.c2] AS c4_value
 FROM tbl0
 JOIN tbl1 ON tbl0.c1 = tbl1.c1;
