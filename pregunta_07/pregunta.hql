@@ -48,7 +48,7 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT c2, concat_ws(':', sort_array(collect_list(cast(c1 as array<string>)))) AS c1_values
+SELECT c2, concat_ws(':', sort_array(collect_list(c1))) AS c1_values
 FROM tbl0
 GROUP BY c2
 ORDER BY c2;
