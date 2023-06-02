@@ -14,7 +14,7 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
 DROP TABLE IF EXISTS tbl0;
 CREATE TABLE tbl0 (
-    c1 STRING,
+    c1 INT,
     c2 STRING,
     c3 INT,
     c4 DATE,
@@ -48,7 +48,7 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT c2, concat_ws(':', sort_array(collect_list(c1))) AS c1_values
+SELECT c2, CONCAT_WS(':', CAST(SORT_ARRAY(collect_list(c1)) AS ARRAY<STRING>)) AS c1_values
 FROM tbl0
 GROUP BY c2
 ORDER BY c2;
