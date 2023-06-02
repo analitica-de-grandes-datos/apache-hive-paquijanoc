@@ -14,7 +14,7 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
 DROP TABLE IF EXISTS tbl0;
 CREATE TABLE tbl0 (
-    c1 INT,
+    c1 STRING,
     c2 STRING,
     c3 INT,
     c4 DATE,
