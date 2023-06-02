@@ -37,6 +37,6 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 SELECT c2_element, unal.key, COUNT(1) as count
 FROM t0
-LATERAL VIEW explode(c6) unal AS key, value
+LATERAL VIEW explode(c3) unal AS key, value
 LATERAL VIEW explode(c2) c2_exp AS c2_element;
 
