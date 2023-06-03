@@ -45,4 +45,9 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
-
+-- Consulta para obtener la columna tbl0.c5 con sus elementos en mayúscula y guardar el resultado en la carpeta output
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+SELECT UPPER(CONCAT_WS(':',c5))
+FROM tbl0;
