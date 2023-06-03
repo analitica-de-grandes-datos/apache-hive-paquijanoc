@@ -35,8 +35,10 @@ LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE t0;
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT c2_element, unal.key, COUNT(1) as count
-FROM t0
-LATERAL VIEW explode(c3) unal AS key, value
-LATERAL VIEW explode(c2) c2_exp AS c2_element;
+SELECT c2_element, c3_key, COUNT(1) as count
+FROM (
+  SELECT c1, explode(c2) as c2_element, explode(c3.key) as c3_key
+  FROM t0
+) t
+GROUP BY c2_element, c3_key;
 
