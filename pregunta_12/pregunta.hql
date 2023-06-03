@@ -39,7 +39,7 @@ SELECT letra AS c2_element, key AS c3_key, COUNT(1) AS count
 FROM (
   SELECT c1, unal.key, unal.value, c2_element
   FROM t0
-  LATERAL VIEW explode(c6) unal AS key, value
+  LATERAL VIEW explode(c3) unal AS key, value
   LATERAL VIEW explode(c2) c2_exp AS c2_element
 ) t
 GROUP BY letra, key;
