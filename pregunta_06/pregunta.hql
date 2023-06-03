@@ -56,3 +56,5 @@ FROM (
 ) t;
 
 
+concat_ws(':', collect_set(upper(c5))) AS c5_upper
+
